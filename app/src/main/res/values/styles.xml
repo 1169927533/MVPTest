@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyTablayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <declare-styleable name="SliderLayout">
+        <attr name="slider_pic" format="reference"/>
+    </declare-styleable>
+    <style name="Theme.AppCompat.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="AppBarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="actionDropDownStyle">@style/AppBaseToolBarMenuDropDownStyle</item>
+        <item name="actionOverflowMenuStyle">@style/AppBaseToolbarOverflowMenuStyle</item>
+        <!--菜单颜色-->
+        <item name="android:textColor">@android:color/white</item>
+        <!--溢出菜单按钮（ActionBar溢出菜单，即最后一个按钮）-->
+
+    </style>
+    <style name="AppBaseToolBarMenuDropDownStyle"  >
+        <item name="overlapAnchor">false</item>
+        <item name="android:popupBackground">@color/material_deep_teal_500</item>
+        <item name="android:dropDownHorizontalOffset">-4dip</item>
+    </style>
+
+    <style name="AppBaseToolbarOverflowMenuStyle" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:popupBackground">@color/material_deep_teal_500</item>
+        <!--ActionBar Menu颜色-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+</resources>
