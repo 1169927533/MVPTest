@@ -15,13 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvptest.R;
 import com.example.mvptest.adapter.NewsAdapter;
+import com.example.mvptest.dagger.component.DaggerHttpUtilComponent;
+import com.example.mvptest.dagger.component.DaggerNewsFragmentComponent;
+import com.example.mvptest.dagger.model.NewsFragmentModel;
+import com.example.mvptest.dagger.model.NewsModelDaoImpMoudle;
 import com.example.mvptest.mvp.newsfra.presenter.NewsPresenter;
 import com.example.mvptest.mvp.newsfra.view.NewsView;
 import com.example.mvptest.object.NewsObj;
 import com.example.mvptest.object.Weather;
+import com.example.mvptest.util.okhttp分装.my.HttpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +50,8 @@ public class NewsFragment extends Fragment implements NewsView {
     List<NewsObj> newsObjList;//新闻数据
 
 
-    NewsPresenter newsPresenter = new NewsPresenter(this);//presenter层
+    @Inject
+    NewsPresenter newsPresenter ;//presenter层
 
 
     public NewsFragment() {
@@ -55,6 +63,8 @@ public class NewsFragment extends Fragment implements NewsView {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_news, container, false);
         ButterKnife.bind(this, view);
+        DaggerNewsFragmentComponent.builder().newsFragmentModel(new NewsFragmentModel(this)).build().inject(this);
+
         initdata();
         return view;
     }

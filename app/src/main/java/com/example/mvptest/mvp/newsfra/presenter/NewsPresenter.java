@@ -8,10 +8,18 @@ import com.example.mvptest.object.Weather;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class NewsPresenter implements NewsmodelDao{
     NewsView newsView;
+
+
+
     NewsmodelDaoImp newsmodelDaoImp;
+
     int startnum = 1;
+
+    @Inject
     public NewsPresenter(NewsView newsView) {
         this.newsView = newsView;
         newsmodelDaoImp = new NewsmodelDaoImp(this);
