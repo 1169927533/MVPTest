@@ -11,9 +11,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class NewsPresenter implements NewsmodelDao{
+
     NewsView newsView;
-
-
 
     NewsmodelDaoImp newsmodelDaoImp;
 

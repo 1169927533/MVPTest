@@ -5,9 +5,12 @@ import com.example.mvptest.mvp.newsfra.model.NewsmodelDaoImp;
 import com.example.mvptest.page.fragment.NewsFragment;
 import com.example.mvptest.util.okhttp分装.my.HttpUtil;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 
+@Singleton
 @Component(modules = NewsModelDaoImpMoudle.class)
 public interface HttpUtilComponent {
     public void inject(NewsmodelDaoImp httpUtil);

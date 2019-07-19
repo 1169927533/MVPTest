@@ -2,6 +2,7 @@ package com.example.mvptest.mvp.newsfra.model;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -27,8 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,22 +45,20 @@ public class NewsmodelDaoImp {
 
     Gson gson = new Gson();
 
-
     static List<NewsObj> newsObjslist;//新闻数据
 
-
-    NewsmodelDao newsPresenter;
+    NewsmodelDao newsmodelDao;
 
     @Inject
     HttpUtil httpUtil;
-
 
     public NewsmodelDaoImp() {
 
     }
 
-    public NewsmodelDaoImp(NewsPresenter newsPresenter) {
-        this.newsPresenter = newsPresenter;
+    public NewsmodelDaoImp(NewsPresenter newsmodelDao) {
+        this.newsmodelDao = newsmodelDao;
+        DaggerHttpUtilComponent.builder().newsModelDaoImpMoudle(new NewsModelDaoImpMoudle()).build().inject(this);
     }
 
     MyHandler myHandler = new MyHandler(this);
@@ -93,8 +97,9 @@ public class NewsmodelDaoImp {
         });
     }
 
+
+
     public void getWeather(String city) {
-        DaggerHttpUtilComponent.builder().newsModelDaoImpMoudle(new NewsModelDaoImpMoudle()).build().inject(this);
         /**
          *用里我自己封装的okhttp
          */
@@ -102,6 +107,9 @@ public class NewsmodelDaoImp {
         httpUtil.get(url, new su());
 
 
+
+
+       // httpUtil.post("ds",);
         /**
          * 下面用的retrofit的请求方法
          */
@@ -165,7 +173,7 @@ public class NewsmodelDaoImp {
                     String mint = jsonObject2.getString("low");
                     String type = jsonObject2.getString("type");
                     Weather weather = new Weather(city, api, maxt, mint, type);
-                    newsPresenter.getWeather(weather);
+                    newsmodelDao.getWeather(weather);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -192,10 +200,10 @@ public class NewsmodelDaoImp {
             final Object activity = mWeakReference.get();
             if (activity != null) {
                 if (msg.what == 1) {
-                    newsPresenter.getNews(newsObjslist);
+                    newsmodelDao.getNews(newsObjslist);
                 } else if (msg.what == 3) {
                     Weather objectRcvd = (Weather) msg.getData().getParcelable("MyObject");
-                    newsPresenter.getWeather(objectRcvd);
+                    newsmodelDao.getWeather(objectRcvd);
                 }
             }
         }
